@@ -14,9 +14,8 @@
   </head>
   <body>
     <div class="flex min-h-screen">
-      {% include 'components/message.html' %}
-
       <div class="drawer lg:drawer-open bg-base-300 text-base-content w-64">
+        {% include 'components/message.html' %}
         <input id="my-drawer" type="checkbox" class="drawer-toggle" />
         {% include 'components/sidebar.html' %}
         <div class="drawer-content bg-base-200 flex flex-col justify-center">
