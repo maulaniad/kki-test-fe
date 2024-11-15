@@ -7,9 +7,10 @@ from app.api import APIClient
 
 @require_GET
 def index(request: HttpRequest) -> HttpResponse:
+    search = request.GET.get('search', "")
     api = APIClient()
 
-    data = api.get("/book/")
+    data = api.get("/book/", params={'search': search})
     if not data:
         return render(request, "index.html", {'error': "Gagal menghubungi API"})
 
