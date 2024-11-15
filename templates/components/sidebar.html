@@ -1,17 +1,17 @@
 <aside class="bg-base-300 text-base-content w-64 p-4 hidden lg:block">
   <h2 class="text-2xl font-semibold mb-4">Smolib Digital</h2>
   <ul class="space-y-2">
-    <li>
+    <li class="{% if url_name == 'index' %}bg-primary text-primary-content rounded{% endif %}">
       <a href="{% url 'index' %}" class="flex items-center px-4 py-2 rounded hover:bg-gray-700">
         <span>🏠 Beranda</span>
       </a>
     </li>
-    <li>
+    <li class="{% if target == 'kategori' %}bg-primary text-primary-content rounded{% endif %}">
       <a href="{% url 'kategori:list' %}" class="flex items-center px-4 py-2 rounded hover:bg-gray-700">
         <span>📦 Kategori</span>
       </a>
     </li>
-    <li>
+    <li class="{% if target == 'buku' %}bg-primary text-primary-content rounded{% endif %}">
       <a href="{% url 'buku:list' %}" class="flex items-center px-4 py-2 rounded hover:bg-gray-700">
         <span>📚 Buku</span>
       </a>
