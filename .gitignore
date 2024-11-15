@@ -2,8 +2,5 @@
 .env
 __pycache__
 
-# cache files
-static/CACHE*
-
 # binary files
 tailwind.exe
