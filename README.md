@@ -20,9 +20,11 @@ Smolib (Small Library) Digital
         - atau (Linux) `source venv/bin/active`
         - Install packages `pip install -r requirements.txt`
 4. Jalankan project setelah masuk virtual environment `python manage.py runserver`
-5. Untuk development, jalankan juga listener Tailwind CSS agar stylesheets selalu terupdate. `./tailwind.exe --watch -i static/src/input.css -o static/src/output.css`
+5. Untuk development, jalankan juga listener Tailwind CSS agar stylesheets selalu terupdate. 
 
-Catatan:
+`./tailwind.exe --watch -i static/src/input.css -o static/src/output.css`
+
+## Catatan:
 
 Jika menjalankan aplikasi backend bersamaan, ganti port ini dengan yang lain.
 
