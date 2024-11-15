@@ -6,32 +6,43 @@
   <div class="mx-auto flex my-10 justify-center">
     <div class="rounded-lg p-6 max-w-sm w-full">
         <h2 class="text-xl font-semibold mb-4">Konfirmasi Penghapusan</h2>
-        <p class="mb-6">
-          Jika kategori <b>{{ kategori.name }}</b> dihapus,
-          maka data buku yang terkait dengan kategori ini akan dihapus juga.
-        </p>
-        {% if buku %}
-          <div class="overflow-x-auto">
-            <table class="table table-xs">
-              <thead>
-                <th>Nama Buku</th>
-                <th>Penulis/Pengarang</th>
-              </thead>
-              <tbody>
-                {% for b in buku %}
-                  <tr>
-                    <td>{{ b.title }}</td>
-                    <td>{{ b.author }}</td>
-                  </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
+        {% if label == "kategori" %}
+          <p class="mb-6">
+            Jika kategori <b>{{ kategori.name }}</b> dihapus,
+            maka data buku yang terkait dengan kategori ini akan dihapus juga.
+          </p>
+          {% if buku %}
+            <div class="overflow-x-auto">
+              <table class="table table-xs">
+                <thead>
+                  <th>Nama Buku</th>
+                  <th>Penulis/Pengarang</th>
+                </thead>
+                <tbody>
+                  {% for b in buku %}
+                    <tr>
+                      <td>{{ b.title }}</td>
+                      <td>{{ b.author }}</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% endif %}
+        {% else %}
+            <p>Anda akan menghapus buku <b>{{ buku.title }}</b>.</p>
         {% endif %}
         <p class="my-10 text-center">Apakah anda yakin?</p>
         <div class="flex justify-center space-x-4">
-          <button class="btn btn-ghost">Tidak</button>
-          <button class="btn btn-error">Ya, hapus</button>
+          {% if label == "kategori" %}
+            <a href="{% url 'kategori:list' %}" class="btn btn-ghost">Tidak</a>
+            <form action="{% url 'kategori:hapus' kategori.id %}" method="post">
+            {% else %}
+              <a href="{% url 'buku:list' %}" class="btn btn-ghost">Tidak</a>
+              <form action="{% url 'buku:hapus' buku.id %}" method="post">{% endif %}
+            {% csrf_token %}
+            <button type="submit" class="btn btn-error">Ya, hapus</button>
+          </form>
         </div>
     </div>
   </div>

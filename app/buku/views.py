@@ -97,10 +97,18 @@ def edit_buku(request: HttpRequest, id: int) -> HttpResponse:
     return redirect("buku:list")
 
 
-@require_http_methods(["GET"])
+@require_http_methods(["GET", "POST"])
 def hapus_buku(request: HttpRequest, id: int) -> HttpResponse:
     api = APIClient()
+    if request.method == "GET":
+        buku = api.get(f"/book/{id}") or {}
+        data_buku = buku.get('data', {})
+        return render(request, "pages/dialog.html", {'buku': data_buku, 'label': "buku"})
 
-    buku = api.get(f"/book/{id}") or {}
-    data_buku = buku.get('data', {})
-    return render(request, "pages/dialog.html", {'buku': data_buku})
+    res = api.delete(f"/book/{id}")
+    if not res:
+        error(request, "API mengembalikan error")
+        return redirect("buku:list")
+
+    success(request, "Sukses hapus buku")
+    return redirect("buku:list")

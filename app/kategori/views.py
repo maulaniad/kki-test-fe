@@ -20,7 +20,6 @@ def list_kategori(request: HttpRequest) -> HttpResponse:
 
     data_kategori = data.get('data', [])
     data_meta = data.get('meta', {})
-    print(data_kategori)
     return render(
         request,
         "pages/kategori.html",
@@ -89,14 +88,28 @@ def edit_kategori(request: HttpRequest, id: int) -> HttpResponse:
     return redirect("kategori:list")
 
 
-@require_http_methods(["GET"])
+@require_http_methods(["GET", "POST"])
 def hapus_kategori(request: HttpRequest, id: int) -> HttpResponse:
     api = APIClient()
 
-    kategori = api.get(f"/category/{id}") or {}
-    data_kategori = kategori.get('data', {})
+    if request.method == "GET":
+        kategori = api.get(f"/category/{id}") or {}
+        data_kategori = kategori.get('data', {})
 
-    buku = api.get(f"/book/?search={data_kategori.get('name', None)}") or {}
-    data_buku = buku.get('data', None)
+        buku = api.get(f"/book/?search={data_kategori.get('name', None)}") or {}
+        data_buku = buku.get('data', None)
 
-    return render(request, "pages/dialog.html", {'kategori': data_kategori, 'buku': data_buku})
+        if data_buku:
+            return render(
+                request,
+                "pages/dialog.html",
+                {'kategori': data_kategori, 'buku': data_buku, 'label': "kategori"}
+            )
+
+    res = api.delete(f"/category/{id}")
+    if not res:
+        error(request, "API mengembalikan error")
+        return redirect("kategori:list")
+
+    success(request, "Sukses hapus kategori")
+    return redirect("kategori:list")
