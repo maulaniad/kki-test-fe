@@ -15,9 +15,19 @@
   <body>
     <div class="flex min-h-screen">
       {% include 'components/message.html' %}
-      {% include 'components/sidebar.html' %}
 
-      {% block content %} {% endblock content %}
+      <div class="drawer lg:drawer-open bg-base-300 text-base-content w-64">
+        <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+        {% include 'components/sidebar.html' %}
+        <div class="drawer-content bg-base-200 flex flex-col justify-center">
+          <label for="my-drawer" class="bg-base-300 w-full text-center drawer-button lg:hidden hover:cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </label>
+          {% block content %} {% endblock content %}
+        </div>
+      </div>
     </div>
   </body>
 </html>
