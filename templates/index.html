@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Home Page{% endblock title %}
+
+{% block content %}
+  <main class="flex-1 p-6 lg:ml-64">
+    {% if error %}
+      <div class="mx-auto my-auto">{{ error }}</div>
+    {% else %}
+      <h1 class="text-3xl font-bold mb-6">🏠 Beranda</h1>
+
+      <form action="{% url 'index' %}" method="get" class="mb-6 flex items-center">
+        <input
+          type="text"
+          placeholder="Cari buku dengan judul ..."
+          name="search"
+          class="input input-bordered w-full max-w-md"
+        />
+        <button type="submit" class="btn btn-primary ml-2">🔎 Cari</button>
+      </form>
+
+      <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {% for book in data %}
+          <div class="card shadow-md hover:shadow-lg transition-shadow">
+            <figure>
+              <img
+                src="https://placeholder.pics/svg/100x75"
+                alt="Book Cover"
+                class="w-full h-48 object-cover"
+              />
+            </figure>
+            <div class="card-body">
+              <h2 class="card-title text-primary">{{ book.title }}</h2>
+              <p class="text-secondary">{{ book.author }}</p>
+              <p class="text-neutral-content text-sm">{{ book.category.name }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </main>
+{% endblock content %}

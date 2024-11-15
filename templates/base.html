@@ -1,0 +1,26 @@
+{% load compress %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="id" data-theme="dim">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %} {% endblock %}</title>
+    {% compress css %}
+      <link type="text/css" rel="stylesheet" href="{% static 'src/output.css' %}" />
+    {% endcompress %}
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" />
+  </head>
+  <body>
+    <div class="flex min-h-screen">
+      {% include 'components/message.html' %}
+      {% include 'components/sidebar.html' %}
+
+      {% block content %} {% endblock content %}
+    </div>
+  </body>
+</html>
+
+<script src="{% static 'scripts/message.js' %}"></script>
+<script src="{% static 'scripts/pagination.js' %}"></script>

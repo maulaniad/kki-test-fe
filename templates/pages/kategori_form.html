@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Form Kategori{% endblock title %}
+
+{% block content %}
+  <div class="p-8 rounded-lg w-full max-w-lg mx-auto">
+    <h1 class="text-2xl font-bold mb-6">{{ header }}</h1>
+      {% if action == "edit" %}
+        <form action="{% url 'kategori:edit' kategori.id %}" method="post">
+        {% else %}
+        <form action="{% url 'kategori:tambah' %}" method="post">
+      {% endif %}
+      {% csrf_token %}
+      <div class="mb-4">
+        <label for="title" class="block font-medium mb-2">Nama Kategori</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Masukan nama kategori"
+          class="input input-bordered w-full"
+          value="{{ kategori.name }}"
+          maxlength="50"
+          required
+        />
+      </div>
+
+      <div class="mt-6">
+        <button type="submit" class="btn btn-primary w-full">Simpan Kategori 💾</button>
+      </div>
+    </form>
+  </div>
+{% endblock content %}

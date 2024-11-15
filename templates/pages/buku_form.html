@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Form Buku{% endblock title %}
+
+{% block content %}
+  <div class="p-8 rounded-lg w-full max-w-lg mx-auto">
+    <h1 class="text-2xl font-bold mb-6">{{ operation }}</h1>
+    {% if action == "edit" %}
+      <form action="{% url 'buku:edit' buku.id %}" method="post">
+    {% else %}
+      <form action="{% url 'buku:tambah' %}" method="post">
+    {% endif %}
+      {% csrf_token %}
+      <div class="mb-4">
+        <label for="title" class="block font-medium mb-2">📜 Judul</label>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          placeholder="Masukan judul buku"
+          class="input input-bordered w-full"
+          value="{{ buku.title}}"
+          maxlength="50"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label for="author" class="block font-medium mb-2">🧑‍🎨 Penulis</label>
+        <input
+          type="text"
+          id="author"
+          name="author"
+          placeholder="Masukan nama penulis"
+          class="input input-bordered w-full"
+          value="{{ buku.author }}"
+          maxlength="50"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label for="category" class="block font-medium mb-2">🏷️ Kategori</label>
+        <select name="category" id="category" class="select select-lg">
+          {% for k in kategori %}
+            {% if buku.category.id == k.id %}
+              <option value="{{ k.id }}" selected>{{ k.name }}</option>
+            {% else %}
+              <option value="{{ k.id }}">{{ k.name }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="mt-6">
+        <button type="submit" class="btn btn-primary w-full">Simpan Buku 💾</button>
+      </div>
+    </form>
+  </div>
+{% endblock content %}
