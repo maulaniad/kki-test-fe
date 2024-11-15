@@ -22,6 +22,10 @@ class APIClient:
                 timeout=self.timeout
             )
             response.raise_for_status()
+
+            if response.status_code == 204:
+                return {'data': True}
+
             return response.json()
         except RequestException as e:
             print(f"Request failed: {e}")
