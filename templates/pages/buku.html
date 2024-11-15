@@ -29,8 +29,16 @@
         <thead>
           <tr>
             <th>#</th>
-            <th>Nama Buku</th>
-            <th>Penulis</th>
+            {% if request.GET.ordering == 'title' %}
+              <th><a href="{% url 'buku:list' %}?ordering=-title">Nama Buku</a></th>
+            {% else %}
+              <th><a href="{% url 'buku:list' %}?ordering=title">Nama Buku</a></th>
+            {% endif %}
+            {% if request.GET.ordering == 'author' %}
+              <th><a href="{% url 'buku:list' %}?ordering=-author">Penulis</a></th>
+            {% else %}
+              <th><a href="{% url 'buku:list' %}?ordering=author">Penulis</a></th>            
+            {% endif %}
             <th>Tanggal Dibuat</th>
             <th>Aksi</th>
           </tr>

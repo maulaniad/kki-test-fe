@@ -29,7 +29,11 @@
         <thead>
           <tr>
             <th>#</th>
-            <th>Nama Kategori</th>
+            {% if request.GET.ordering == 'name' %}
+              <th><a href="{% url 'kategori:list' %}?ordering=-name">Nama Kategori</a></th>
+            {% else %}
+              <th><a href="{% url 'kategori:list' %}?ordering=name">Nama Kategori</a></th>
+            {% endif %}
             <th>Tanggal Dibuat</th>
             <th>Aksi</th>
           </tr>

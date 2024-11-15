@@ -12,9 +12,10 @@ def list_buku(request: HttpRequest) -> HttpResponse:
     page = int(request.GET.get("page", 1))
     page_size = int(request.GET.get("page_size", 5))
     search = request.GET.get('search', "")
+    ordering = request.GET.get('ordering', "-created_at")
 
     api = APIClient()
-    data = api.get("/book/", {'search': search, 'page': page, "page_size": page_size})
+    data = api.get("/book/", {'search': search, 'ordering': ordering, 'page': page, "page_size": page_size})
     if not data:
         return render(request, "pages/buku.html", {'error': "Gagal menghubungi API"})
 
